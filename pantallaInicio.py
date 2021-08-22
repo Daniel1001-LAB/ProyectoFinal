@@ -146,8 +146,10 @@ def login():
     db.close()
 
 def SubirFotos():
-    cmd = 'python gui.py' 
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True) 
+    cmd = 'python subirImagen.py' 
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+
+
 
 def GuardarDatos():
     login()
