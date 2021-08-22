@@ -1,5 +1,6 @@
 from tkinter.font import BOLD
 from camara import CamaraEscritorio
+
 import pymysql
 import os
 import subprocess 
@@ -144,7 +145,9 @@ def login():
     db.rollback()
     db.close()
 
-
+def SubirFotos():
+    cmd = 'python gui.py' 
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True) 
 
 def GuardarDatos():
     login()
@@ -153,6 +156,6 @@ def DetectorPlacas():
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True) 
     
 tk.Button (text = "Guardar", width=40, command = GuardarDatos).place(x=60,y=560)
-tk.Button (text = "Encender Camara", width=40, command = CamaraEscritorio).place(x=900,y=120)
+tk.Button (text = "Selecciona desde tu PC", width=40, command = SubirFotos).place(x=900,y=120)
 tk.Button (text = " Camara", width=40, command = DetectorPlacas).place(x=900,y=160)
 ventana.mainloop()

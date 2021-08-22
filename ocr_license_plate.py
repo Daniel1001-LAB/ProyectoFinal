@@ -15,13 +15,7 @@ conn = pymysql.connect(
         host="localhost", port=3306, user="root",
         passwd="", db="dbdatos"
     )
-cursor=conn.cursor()
-cursor.execute(
-		"SELECT * FROM personas"
-		)
-personas = cursor.fetchall()
-for persona in personas:  
-			print(persona[1])
+
 def cleanup_text(text):
 	# strip out non-ASCII text so we can draw the text on the image
 	# using OpenCV
@@ -61,6 +55,13 @@ for imagePath in imagePaths:
 	
 		# fit a rotated bounding box to the license plate contour and
 		# draw the bounding box on the license plate
+		cursor=conn.cursor()
+		cursor.execute(
+			"SELECT * FROM personas where placa like '{}'".format(lpCnt)
+			)	
+		for codigo,nombre, direccion,correo,descripcion_auto, placa in cursor.fetchall():
+   						print("{0} {1} {2} {3} {4} {5}".format(codigo, nombre,direccion,correo, descripcion_auto,placa))
+
 		box = cv2.boxPoints(cv2.minAreaRect(lpCnt))
 		box = box.astype("int")
 		cv2.drawContours(image, [box], -1, (0, 255, 0), 2)
