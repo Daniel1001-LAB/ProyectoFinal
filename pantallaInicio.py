@@ -149,6 +149,9 @@ def SubirFotos():
     cmd = 'python subirImagen.py' 
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
 
+def ListaPlacas():
+    cmd = 'python table.py' 
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
 
 
 def GuardarDatos():
@@ -160,4 +163,6 @@ def DetectorPlacas():
 tk.Button (text = "Guardar", width=40, command = GuardarDatos).place(x=60,y=560)
 tk.Button (text = "Selecciona desde tu PC", width=40, command = SubirFotos).place(x=900,y=120)
 tk.Button (text = " Camara", width=40, command = DetectorPlacas).place(x=900,y=160)
+tk.Button (text = "Ver Listado de personas", width=40, command = ListaPlacas).place(x=900,y=200)
+
 ventana.mainloop()

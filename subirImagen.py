@@ -5,7 +5,9 @@ from PIL import ImageTk, Image
 from tkinter import PhotoImage
 import numpy as np
 import cv2
-from PIL import ImageGrab
+import requests
+from random import randint
+
 import imutils
 import pytesseract as tess
 tess.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
@@ -60,6 +62,8 @@ def guiOp():
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+    
 
 def clean2_plate(plate):
     gray_img = cv2.cvtColor(plate, cv2.COLOR_BGR2GRAY)
@@ -120,7 +124,7 @@ def ratio_and_rotation(rect):
         return True
 
 top=tk.Tk()
-top.geometry('900x700')
+top.geometry('1000x700')
 top.title('Detector de placas')
 # top.wm_iconbitmap('/home/shivam/Dataflair/Keras Projects_CIFAR/GUI/logo.ico')
 top.iconphoto(True, PhotoImage(file="C:/Users/PC-1/Desktop/Prueba1/uth3.png"))
@@ -184,16 +188,26 @@ def classify(file_path):
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    
+
+    url = 'https://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text/plain'
+    datos = requests.get(url)
+    texto = datos.text
+    print(texto)
+    palabras = texto.split()
+    print(palabras)
+    num_aleatorio = randint(0,len(palabras))
+    print(palabras[num_aleatorio]+str(num_aleatorio))
+
     #######################################################
     label.configure(foreground='#011638', text=text)
     label.place(x=520, y=260)
+
     #plate_img.configure()
-    Cropped=Image.open("result.png")
-    im=ImageTk.PhotoImage(Cropped)
-    plate_image.image=im
-    plate_image.pack()
-    plate_image.place(x=560,y=320)
+    #Cropped=Image.open("result.png")
+    #im=ImageTk.PhotoImage(Cropped)
+    #plate_image.image=im
+    #plate_image.pack()
+    #plate_image.place(x=560,y=320)
 
 def show_classify_button(file_path):
     classify_b=Button(top,text="Detectar Placa",command=lambda: classify(file_path),padx=10,pady=5)
